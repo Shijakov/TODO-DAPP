@@ -12,6 +12,8 @@ import { cn } from '@/utils/cn'
 
 import './globals.css'
 import ClientProviders from './providers'
+import { AppState } from './state/app-state'
+import { TodoState } from './state/todo-state'
 
 export const viewport: Viewport = {
   themeColor: '#000000',
@@ -48,10 +50,13 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" className={cn('dark', GeistSans.variable, GeistMono.variable)}>
       <body>
         <ClientProviders>
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            <AppState>
+              <TodoState>{children}</TodoState>
+            </AppState>
+          </TooltipProvider>
           <ToastConfig />
         </ClientProviders>
-
         {!!env.isProduction && <Analytics />}
       </body>
     </html>
